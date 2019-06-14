@@ -10,8 +10,8 @@ Following is the instruction how to run the project
 - redux thunk
 
 ##### Step 1
-1- Download Repository From github.com
-2- Extract and you will see two folder 
+- **Download Repository From github.com**
+- **Extract and you will see two folder**
  - `project/bugzilla`                        (Rails Application)
  - `project/client/bugzilla_front`    (React application)
 ##
