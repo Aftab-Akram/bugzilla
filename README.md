@@ -2,12 +2,12 @@
 Following is the instruction how to run the project
 
 ### System Requirements
-Rails 5.2.3 
-Ruby 2.6.3
-create-react-app
-axios 
-redux 
-redux thunk
+- Rails 5.2.3 
+- Ruby 2.6.3
+- create-react-app
+- axios 
+- redux 
+- redux thunk
 
 ##### Step 1
 1- Download Repository From github.com
