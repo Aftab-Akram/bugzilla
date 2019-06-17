@@ -14,7 +14,7 @@ class ProjectsController < ApplicationController
   end
 
    def all_resource
-    @resources = User.where.not(id: Project.find(params[:project_id]).users.ids)
+    @resources = User.where.not(id: Project.find(params[:project_id]).users)
 
     render json: {managers: @resources.managers,
                   developers: @resources.developers,
@@ -27,9 +27,9 @@ class ProjectsController < ApplicationController
     @avail_bugs = @bugs.where.not(id: @assign_bugs.ids).with_attached_screenshot
 
     render json: {assign_bugs: @assign_bugs.map { |bug|
-      bug.as_json.merge({ image_url: bug.screenshot.attached? ? rails_blob_url(bug.screenshot) : url_for('bug.jpg') })},
+      bug.as_json.merge({ image_url: bug.screenshot.attached? ? rails_blob_url(bug.screenshot) : "http://localhost:3000/bug.jpg" })},
        unassign_bugs: @avail_bugs.map { |bug|
-      bug.as_json.merge({ image_url: bug.screenshot.attached? ? rails_blob_url(bug.screenshot) : url_for('bug.jpg') })}}
+      bug.as_json.merge({ image_url: bug.screenshot.attached? ? rails_blob_url(bug.screenshot) : "http://localhost:3000/bug.jpg" })}}
   end
 
   def show
@@ -43,7 +43,7 @@ class ProjectsController < ApplicationController
     if @project.save
       render json: @project, status: :created, location: @project
     else
-      render json: @project.errors, status: :unprocessable_entity
+      render json: {errors.@project.errors.to_a}, status: :unprocessable_entity
     end
   end
 
@@ -51,7 +51,7 @@ class ProjectsController < ApplicationController
     if @project.update(project_params)
       render json: @project
     else
-      render json: @project.errors, status: :unprocessable_entity
+      render json: {errors.@project.errors.to_a}, status: :unprocessable_entity
     end
   end
 

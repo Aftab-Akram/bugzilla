@@ -14,7 +14,7 @@ class ApplicationController < ActionController::API
     end
     
     def render_unprocessable_entity_response(exception)
-      render json: exception.record.errors, status: :unprocessable_entity
+      render json: {errors: exception.record.errors}, status: :unprocessable_entity
     end
 
     def render_not_found_response(exception)
