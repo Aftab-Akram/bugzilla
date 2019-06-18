@@ -1,6 +1,8 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
+
 import { fetchResource, removeResource } from "../../actions/ResourceAction";
+import { getMemberRole } from "../../api/auth-api";
 import ResourceEditor from "../resource/ResourceEditor";
 
 class ProjectDetail extends Component {
@@ -31,9 +33,11 @@ class ProjectDetail extends Component {
       return (
         <tr>
           <td>{d.name}</td>
-          <td>
-            <button onClick={() => this.remove_res(id, d.id)}> Remove</button>
-          </td>
+          {getMemberRole() === "manager" && (
+            <td>
+              <button onClick={() => this.remove_res(id, d.id)}> Remove</button>
+            </td>
+          )}
         </tr>
       );
     });
@@ -41,16 +45,20 @@ class ProjectDetail extends Component {
       return (
         <tr>
           <td>{d.name}</td>
-          <td>
-            <button onClick={() => this.remove_res(id, d.id)}> Remove</button>
-          </td>
+          {getMemberRole() === "manager" && (
+            <td>
+              <button onClick={() => this.remove_res(id, d.id)}> Remove</button>
+            </td>
+          )}
         </tr>
       );
     });
     return (
       <div className="container">
         <p>Bugs</p>
-        <p><button onClick={this.show_bugs}> Show Bugs</button></p>
+        <p>
+          <button onClick={this.show_bugs}> Show Bugs</button>
+        </p>
         <div className="alert alert-danger alert-dismissible">
           {this.props.errors}
         </div>

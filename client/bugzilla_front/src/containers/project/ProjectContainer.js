@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import React, { Component } from "react";
 
 import { fetchProjectsData } from "../../actions/ProjectAction";
+import { getMemberRole } from "../../api/auth-api";
 import Project from "./Project";
 
 class ProjectList extends Component {
@@ -10,30 +11,28 @@ class ProjectList extends Component {
   }
   create_project = () => {
     this.props.history.push({
-        pathname: '/create_project'
-      })
-}
+      pathname: "/create_project"
+    });
+  };
 
   render() {
     let postList = this.props.projects.map(project => {
-      return (
-        <Project
-          key={project.id}
-          name={project.name}
-          id={project.id}
-        />
-      );
+      return <Project key={project.id} name={project.name} id={project.id} />;
     });
-    
-    return <div className="container">
-      <div className="alert alert-danger alert-dismissible">{this.props.errors}</div>
-      <table className="table">
-        <tbody>
-          {postList}
-        </tbody>
-      </table>
-    <button onClick = {this.create_project} > Create</button>
-    </div>;
+    return (
+      <div className="container">
+        <div className="alert alert-danger alert-dismissible">
+          {this.props.errors}
+        </div>
+        <table className="table">
+          <tbody>{postList}</tbody>
+        </table>
+
+        {getMemberRole() === "manager" && (
+          <button onClick={this.create_project}> Create</button>
+        )}
+      </div>
+    );
   }
 }
 

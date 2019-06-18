@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
 import { addBug, removeBug } from "../../actions/AssignAction";
+import { getMemberRole } from "../../api/auth-api";
 
 
 class Bug extends Component {
@@ -26,17 +27,19 @@ class Bug extends Component {
   }
 
   render() {
-    const { name } = this.props.bug;
+    const { name} = this.props.bug;
+    
+    const action = this.props.assign ? ( <td>
+      <button onClick={this.assign_bug}> Assign</button>
+    </td>) : (
+        <td>
+          <button onClick={this.delete_bug}> Delete</button>
+        </td>)
       
     return (
       <tr>
         <td>{name}</td>
-        <td>
-          <button onClick={this.assign_bug}> Assign</button>
-        </td>
-        <td>
-          <button onClick={this.delete_bug}> Delete</button>
-        </td>
+        {getMemberRole() === "developer" && action}
         <td>
           <button onClick={this.show_bug}> Show</button>
         </td>

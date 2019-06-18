@@ -18,8 +18,12 @@ const Logout = props => {
   } else {
     logout_action = <Redirect to="/" />;
   }
-
-  return props.isRedirect ? <Redirect to="/" /> : logout_action;
+  if (props.isRedirect) {
+    props.flushRedirect();
+    return <Redirect to="/" />;
+  } else {
+    return logout_action;
+  }
 };
 
 const mapStateToProps = state => {

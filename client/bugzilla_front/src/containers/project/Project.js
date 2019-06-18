@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 
 import { DeleteProjectData } from "../../actions/ProjectAction";
+import { getMemberRole } from "../../api/auth-api";
 
 class Project extends Component {
   update_project = () => {
@@ -14,9 +15,19 @@ class Project extends Component {
       }
     });
   };
+
   show_project = () => {
     this.props.history.push({
       pathname: "/show_project",
+      state: {
+        id: this.props.id
+      }
+    });
+  }
+
+  show_bugs = () => {
+    this.props.history.push({
+      pathname: "/bugs",
       state: {
         id: this.props.id
       }
@@ -32,14 +43,23 @@ class Project extends Component {
     return (
       <tr>
         <td>{name}</td>
+        {getMemberRole() === "manager" && (
+          <td>
+            <button onClick={this.update_project}> Edit</button>
+          </td>
+        )}
+        {getMemberRole() === "manager" && (
+          <td>
+            <button onClick={this.delete_project}> Delete</button>
+          </td>
+        )}
+
         <td>
-          <button onClick={this.update_project}> Edit</button>
+          <button onClick={this.show_project}> Show Project</button>
         </td>
+
         <td>
-          <button onClick={this.delete_project}> Delete</button>
-        </td>
-        <td>
-          <button onClick={this.show_project}> Show</button>
+          <button onClick={this.show_bugs}> Show Bugs</button>
         </td>
       </tr>
     );

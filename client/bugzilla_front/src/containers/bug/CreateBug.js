@@ -31,7 +31,9 @@ class CreateBug extends Component {
     bug.append("bug[status]", this.state.status);
     bug.append("bug[feature_type]", this.state.feature_type);
     bug.append("bug[project_id]", this.props.location.state.id);
-    bug.append("bug[screenshot]", this.state.screenshot);
+    if(this.state.screenshot) {
+      bug.append("bug[screenshot]", this.state.screenshot);
+    }
     bug.append("bug[description]", this.state.description);
     this.props.createBug(this.props.location.state.id, bug);
   };

@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
 import { fetchProjectBugsData } from "../../actions/AssignAction";
+import { getMemberRole } from "../../api/auth-api";
 import Bug from "./Bugs";
 
 import { redirectDisable } from "../../actions/VisualAction";
@@ -32,6 +33,7 @@ class BugList extends Component {
           id={id}
           bug_id={bug.id}
           bug={bug}
+          assign={false}
         />
       );
     });
@@ -42,6 +44,7 @@ class BugList extends Component {
           id={id}
           bug_id={bug.id}
           bug={bug}
+          assign={true}
         />
         );
       });
@@ -60,8 +63,8 @@ class BugList extends Component {
           {unassignList}
         </tbody>
       </table>
-
-    <button onClick = {this.create_bug} > Create</button>
+    { getMemberRole() === "qa" && <button onClick = {this.create_bug} > Create</button>}
+    
     </div>;
   }
 }

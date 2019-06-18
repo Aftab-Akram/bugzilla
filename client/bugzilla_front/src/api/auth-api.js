@@ -38,12 +38,32 @@ export const createToken = res => {
   );
 };
 
+export const createMemeberInfo = res => {
+  const {data} = res.data
+  localStorage.setItem (
+    'member_name', data.name
+  );
+  localStorage.setItem (
+    'member_role', data.role
+  );
+}
+
+export const getMemberRole = () =>  {
+  return localStorage.getItem('member_role');
+}
+export const getMemberName = () => {
+  return localStorage.getItem('member_name');
+}
+
 export const getToken = () => {
   return JSON.parse(localStorage.getItem("member"));
 };
 
 export const clearToken = () => {
-  return localStorage.removeItem("member");
+  localStorage.removeItem("member");
+  localStorage.removeItem("member_role");
+  return localStorage.removeItem("member_name");
+
 };
 
 export const isLoggedIn = () => {

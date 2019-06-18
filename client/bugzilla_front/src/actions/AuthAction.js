@@ -11,7 +11,8 @@ import {
   createToken,
   signUp,
   signOut,
-  clearToken
+  clearToken,
+  createMemeberInfo
 } from "../api/auth-api";
 
 export const SignIn = auth => {
@@ -21,6 +22,7 @@ export const SignIn = auth => {
     signIn(auth)
       .then(res => {
         createToken(res);
+        createMemeberInfo(res);
         dispatch(login());
         dispatch(redirectEnable());
       })

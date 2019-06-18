@@ -1,6 +1,10 @@
 import { connect } from "react-redux";
 import React, { Component } from "react";
-import { fetchAvailableResource, addResource } from "../../actions/ResourceAction";
+import {
+  fetchAvailableResource,
+  addResource
+} from "../../actions/ResourceAction";
+import { getMemberRole } from "../../api/auth-api";
 
 class ResourceEditor extends Component {
   componentDidMount() {
@@ -11,10 +15,6 @@ class ResourceEditor extends Component {
     this.props.addProjectResources(id, res_id);
   };
 
-  //   show_res = () => {
-
-  //   }
-
   render() {
     const no_qas_msge = <tr>There are no QA's Available</tr>;
     const no_dev_msge = <tr>There are no Developers's Available</tr>;
@@ -23,15 +23,13 @@ class ResourceEditor extends Component {
       return (
         <tr>
           <td>{d.name}</td>
-          <td>
-            <button onClick={() => this.add_res(project_id, { id: d.id })}>
-              {" "}
-              Add
-            </button>
-          </td>
-          {/* <td>
-          <button onClick={this.show_res}> Show</button>
-        </td> */}
+          {getMemberRole() === "manager" && (
+            <td>
+              <button onClick={() => this.add_res(project_id, { id: d.id })}>
+                Add
+              </button>
+            </td>
+          )}
         </tr>
       );
     });
@@ -39,20 +37,18 @@ class ResourceEditor extends Component {
       return (
         <tr>
           <td>{d.name}</td>
-          <td>
-            <button onClick={() => this.add_res(project_id, { id: d.id })}>
-              {" "}
-              Add
-            </button>
-          </td>
-          {/* <td>
-          <button onClick={this.show_project}> Show</button>
-        </td> */}
+          {getMemberRole() === "manager" && (
+            <td>
+              <button onClick={() => this.add_res(project_id, { id: d.id })}>
+                Add
+              </button>
+            </td>
+          )}
         </tr>
       );
     });
     return (
-      <div >
+      <div>
         <h4> Available Developers </h4>
         <table className="table">
           <tbody>

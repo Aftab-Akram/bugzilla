@@ -5,6 +5,7 @@ import {
   deleteProjectBug
 } from "../api/assign_api";
 import { ASSIGN_BUG, DEASSIGN_BUG } from "./types";
+import { ChangeStatusData } from './BugAction';
 
 export const renderAssign = data => {
   return {
@@ -24,6 +25,7 @@ export const addBug = (id, bug_id) => {
     dispatch(removeError([]));
     assignProjectBug(id, bug_id)
       .then(res => {
+        dispatch(ChangeStatusData(id,bug_id, {status: 'started'}));
         dispatch(fetchProjectBugsData(id));
       })
       .catch(error => {

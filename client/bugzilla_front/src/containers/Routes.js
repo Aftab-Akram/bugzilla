@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { login } from "../actions/VisualAction";
+import { getMemberName} from '../api/auth-api'
 
 const AppRoutes = props => {
   return (
@@ -24,7 +25,7 @@ const AppRoutes = props => {
         <ul className="nav navbar-nav navbar-right">
           <li>
             <Link to="/sign-up">
-              <span className="glyphicon glyphicon-user" /> Not Register ( Sign
+              <span className="glyphicon glyphicon-user" /> Not {getMemberName()} ( Sign
               Up )
             </Link>
           </li>
